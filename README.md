@@ -1,14 +1,16 @@
 # O'kanban - Saison 07 - Front SPA
 
 - Jour 1 - SPA
-  - [E06 - Templates & AJAX](./docs/cours/E06.md)
-  - [C06 - Templates & AJAX](./docs/challenges/C06.md)
+
+  - [E01 - Templates & AJAX](./docs/cours/E01.md)
+  - [C01 - Templates & AJAX](./docs/challenges/C01.md)
 
 - Jour 2 - SPA
-  - [E07 - ESM & Gestion d'erreurs](./docs/cours/E07.md)
-  - [C07 - CRUD & Drag'n'Drop](./docs/challenges/C07.md)
+
+  - [E02 - ESM & Gestion d'erreurs](./docs/cours/E02.md)
+  - [C02 - CRUD & Drag'n'Drop](./docs/challenges/C02.md)
 
 - Jour 3 - SPA
-  - [E08 - Bundlers & modules](./docs/cours/E08.md)
-  - [E08 - Architecture Mono-dépôt](./docs/cours/E08.md)
-    - [C08 - CRUD & Drag'n'Drop (bonus)](./docs/challenges/C08.md)
+  - [E03 - Bundlers & modules](./docs/cours/E03.md)
+  - [E03 - Architecture Mono-dépôt](./docs/cours/E03.md)
+    - [C03 - CRUD & Drag'n'Drop (bonus)](./docs/challenges/C03.md)
