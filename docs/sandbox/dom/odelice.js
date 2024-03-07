@@ -106,6 +106,24 @@ articlesContainerElem.appendChild(cloneElem);
 
 // ===== TEMPLATE pour chaque fruit !
 
-// Ajouter un article par fruit dans la div "articles-list"
+// On parcours les fruits
+fruits.forEach((fruit) => {
+  // Etape 1 : Je clone le template
+  const templateElem = document.getElementById("fruit-template");
+  const cloneElem = templateElem.content.cloneNode(true);
+
+  // Etape 2 : Je modifie le clone
+  cloneElem.querySelector('[slot="fruit-name"]').textContent = fruit.name;
+  cloneElem.querySelector('[slot="fruit-quantity"]').textContent =
+    fruit.quantity;
+  cloneElem.querySelector('[slot="fruit-price"]').textContent = fruit.unitPrice;
+
+  // Etape 3 : J'ajoute le clone au DOM
+  const fruitContainer = document.getElementById("articles-list");
+  fruitContainer.appendChild(cloneElem);
+});
 
 // ====== Selection de plusieurs éléments d'un seul coup ======
+
+const allLiElems = document.querySelectorAll("li");
+console.log(allLiElems);
