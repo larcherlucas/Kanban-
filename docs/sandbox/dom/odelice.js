@@ -106,4 +106,6 @@ articlesContainerElem.appendChild(cloneElem);
 
 // ===== TEMPLATE pour chaque fruit !
 
+// Ajouter un article par fruit dans la div "articles-list"
+
 // ====== Selection de plusieurs éléments d'un seul coup ======
