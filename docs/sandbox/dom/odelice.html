@@ -1,56 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Révision du DOM</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Révision du DOM</title>
 
-  <!-- Si on rajoute un script dans le HEAD plutôt qu'en bas du body, il faut rajouter l'attribut defer -->
-  <script defer src="./odelice.js"></script>
+    <!-- Si on rajoute un script dans le HEAD plutôt qu'en bas du body, il faut rajouter l'attribut defer -->
+    <script defer src="./odelice.js"></script>
 
-  <!-- Généralement, on importe le CSS des librairies AVANT nos propres CSS -->
-  <!-- Afin de pouvoir ECRASER le CSS de la libre par le notre en cas de besoin -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.css">
+    <!-- Généralement, on importe le CSS des librairies AVANT nos propres CSS -->
+    <!-- Afin de pouvoir ECRASER le CSS de la libre par le notre en cas de besoin -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.css"
+    />
 
-  <!-- Style -->
-  <style>
-    /* Meilleure pratique : extraire ce CSS dans son propre fichier */
-    .underline {
-      text-decoration: underline;
-    }
+    <!-- Style -->
+    <style>
+      /* Meilleure pratique : extraire ce CSS dans son propre fichier */
+      .underline {
+        text-decoration: underline;
+      }
 
-    body {
-      width: 80%;
-      margin: 0 auto;
-    }
+      body {
+        width: 80%;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="title" class="title">Mon panier o'Delice</h1>
 
-  </style>
+    <button class="button is-primary">Cliquer ici</button>
 
+    <ul id="fruits-list">
+      <!-- Insérer des LI ici -->
+    </ul>
 
-</head>
-<body>
-  <h1 id="title" class="title">Mon panier o'Delice</h1>
+    <div id="articles-list">
+      <!-- Insérer nos Articles ici -->
+    </div>
 
-  <button class="button is-primary">Cliquer ici</button>
-
-  <ul id="fruits-list">
-    <!-- Insérer des LI ici -->
-  </ul>
-
-  <div id="articles-list">
-    <!-- Insérer nos Articles ici -->
-  </div>
-
-  <template id="fruit-template">
-    <article class="card">
-      <h2 class="card-title" slot="fruit-name">NOM_DU_FRUIT</h2>
-      <footer class="card-footer">
-        <p class="card-footer-item">Quantité : <span slot="fruit-quantity">QUANTITE_DU_FRUIT</span></p>
-        <p class="card-footer-item">Prix à l'unité : <span slot="fruit-price">PRIX_DU_FRUIT</span>€</p>
-      </footer>
-    </article>
-  </template>
-
-
-</body>
+    <template id="fruit-template">
+      <article class="card">
+        <h2 class="card-title" slot="fruit-name">NOM_DU_FRUIT</h2>
+        <footer class="card-footer">
+          <p class="card-footer-item">
+            Quantité : <span slot="fruit-quantity">QUANTITE_DU_FRUIT</span>
+          </p>
+          <p class="card-footer-item">
+            Prix à l'unité : <span slot="fruit-price">PRIX_DU_FRUIT</span>€
+          </p>
+        </footer>
+      </article>
+    </template>
+  </body>
 </html>
