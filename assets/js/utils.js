@@ -17,3 +17,7 @@ export function listenToClickOnModalClosingElements() {
     elem.addEventListener("click", closeActiveModal);
   });
 }
+
+export function displayErrorMessage(msg) {
+  alert(msg);
+}

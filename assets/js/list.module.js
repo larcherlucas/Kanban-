@@ -1,4 +1,4 @@
-import { closeActiveModal } from "./utils.js";
+import { closeActiveModal, displayErrorMessage } from "./utils.js";
 import { getLists, createList } from "./api.js";
 
 export function listenToSubmitOnAddListForm() {
@@ -16,6 +16,12 @@ export function listenToSubmitOnAddListForm() {
 
     // On fait l'appel API pour créer la nouvelle list
     const newList = await createList(jsonData);
+
+    // Je vérifie que tout s'est bien passé
+    if (!newList) {
+      displayErrorMessage("Erreur lors de la creation");
+      return;
+    }
 
     // On ajoute la nouvelle liste au DOM
     addListToListsContainer(newList);
@@ -63,6 +69,12 @@ export function addListToListsContainer(list) {
 
 export async function fetchAndDisplayLists() {
   const lists = await getLists();
+
+  // Si on as un probleme au niveau du call API on affiche une erreur
+  if (!lists) {
+    displayErrorMessage("Impossible de récuperer les listes");
+  }
+
   lists.forEach((list) => {
     addListToListsContainer(list);
   });
