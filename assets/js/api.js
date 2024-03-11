@@ -38,3 +38,24 @@ export async function getLists() {
     return null;
   }
 }
+
+export async function editList(listId, listData) {
+  try {
+    const url = `${baseApiUrl}/lists/${listId}`;
+    const httpResponse = await fetch(url, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(listData),
+    });
+
+    if (!httpResponse.ok) {
+      return null;
+    }
+
+    const httpJsonData = await httpResponse.json();
+    return httpJsonData;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}

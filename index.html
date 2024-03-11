@@ -52,6 +52,46 @@
       </section>
     </main>
 
+    <!-- Edit a list modal -->
+    <!-- (add the 'is-active' class to see it : https://bulma.io/documentation/components/modal/#javascript-implementation-example) -->
+    <div class="modal" id="edit-list-modal">
+      <div class="modal-background" data-action="close-modal"></div>
+      <div class="modal-card">
+        <form id="edit-list-form">
+          <div class="modal-card-head">
+            <p class="modal-card-title">Editer une liste</p>
+            <button
+              class="delete close"
+              type="button"
+              aria-label="close"
+              data-action="close-modal"
+            ></button>
+          </div>
+
+          <div class="modal-card-body">
+            <label class="label">Nom</label>
+            <input
+              class="input"
+              type="text"
+              name="title"
+              placeholder="Titre de la liste"
+            />
+          </div>
+
+          <div class="modal-card-foot">
+            <button class="button is-success">Modifier</button>
+            <button
+              class="button close"
+              type="button"
+              data-action="close-modal"
+            >
+              Annuler
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- Add a list modal -->
     <!-- (add the 'is-active' class to see it : https://bulma.io/documentation/components/modal/#javascript-implementation-example) -->
     <div class="modal" id="add-list-modal">
@@ -98,9 +138,14 @@
     <section class="message is-info" slot="list-id">
       <div class="message-header">
         <div class="list-title" slot="list-title">TITRE_DE_LA_LISTE</div>
-        <span class="icon is-clickable" slot="add-card-button"
-          ><i class="fas fa-plus"></i
-        ></span>
+        <div>
+          <span class="icon is-clickable" slot="add-card-button"
+            ><i class="fas fa-plus"></i
+          ></span>
+          <span class="icon is-clickable" slot="edit-card-button"
+            ><i class="fas fa-pen"></i
+          ></span>
+        </div>
       </div>
 
       <div class="message-body" slot="list-content">
