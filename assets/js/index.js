@@ -7,6 +7,7 @@ import {
   listenToSubmitOnAddListForm,
   fetchAndDisplayLists,
   listenToSubmitOnEditListForm,
+  listenToSubmitOnDeleteListForm,
 } from "./list.module.js";
 import { listenToClickOnModalClosingElements } from "./utils.js";
 
@@ -16,5 +17,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   listenToClickOnModalClosingElements();
   listenToSubmitOnAddListForm();
   listenToSubmitOnEditListForm();
+  listenToSubmitOnDeleteListForm();
   await fetchAndDisplayLists();
 });

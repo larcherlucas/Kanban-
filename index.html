@@ -52,6 +52,40 @@
       </section>
     </main>
 
+    <!-- delete a modal -->
+    <!-- (add the 'is-active' class to see it : https://bulma.io/documentation/components/modal/#javascript-implementation-example) -->
+    <div class="modal" id="delete-list-modal">
+      <div class="modal-background" data-action="close-modal"></div>
+      <div class="modal-card">
+        <form id="delete-list-form">
+          <div class="modal-card-head">
+            <p class="modal-card-title">Supprimer une liste</p>
+            <button
+              class="delete close"
+              type="button"
+              aria-label="close"
+              data-action="close-modal"
+            ></button>
+          </div>
+
+          <div class="modal-card-body">
+            <p>Voulez vous supprimer la liste ?</p>
+          </div>
+
+          <div class="modal-card-foot">
+            <button class="button is-success">Oui</button>
+            <button
+              class="button close"
+              type="button"
+              data-action="close-modal"
+            >
+              Non
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- Edit a list modal -->
     <!-- (add the 'is-active' class to see it : https://bulma.io/documentation/components/modal/#javascript-implementation-example) -->
     <div class="modal" id="edit-list-modal">
@@ -144,6 +178,9 @@
           ></span>
           <span class="icon is-clickable" slot="edit-card-button"
             ><i class="fas fa-pen"></i
+          ></span>
+          <span class="icon is-clickable" slot="delete-card-button"
+            ><i class="fas fa-trash"></i
           ></span>
         </div>
       </div>

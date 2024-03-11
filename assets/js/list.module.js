@@ -4,7 +4,7 @@ import {
   displayToast,
 } from "./utils.js";
 
-import { getLists, createList, editList } from "./api.js";
+import { getLists, createList, editList, deleteList } from "./api.js";
 import { baseApiUrl } from "./config.js";
 
 export function listenToSubmitOnAddListForm() {
@@ -82,6 +82,14 @@ export function addListToListsContainer(list) {
     editListModalElem.classList.add("is-active");
   });
 
+  // Ouverture de la modal de suppression
+  const deleteBtnElem = cloneElem.querySelector('[slot="delete-card-button"]');
+  deleteBtnElem.addEventListener("click", () => {
+    const deleteListModalElem = document.getElementById("delete-list-modal");
+    deleteListModalElem.dataset.listId = list.id;
+    deleteListModalElem.classList.add("is-active");
+  });
+
   // - sélectionner l'élément conteneur des listes
   const listContainer = document.getElementById("lists-container");
 
@@ -89,12 +97,36 @@ export function addListToListsContainer(list) {
   listContainer.appendChild(cloneElem); // prepend c'est comme appendChild mais ça positionne avant
 }
 
+export function listenToSubmitOnDeleteListForm() {
+  const deleteListForm = document.getElementById("delete-list-form");
+  deleteListForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    // Je recupere l'ID de la liste a supprimer
+    const deleteModalElem = document.getElementById("delete-list-modal");
+    const listId = deleteModalElem.dataset.listId;
+
+    // On delete coté API
+    const deletedList = await deleteList(listId);
+
+    if (!deletedList) {
+      displayErrorMessage("Impossible de supprimer la liste");
+    }
+
+    // On delete la liste dans le DOM
+    const deletedListElem = document.getElementById(`list-${listId}`);
+    deletedListElem.remove();
+
+    // On ferme la modal
+    closeActiveModal();
+  });
+}
+
 export function listenToSubmitOnEditListForm() {
   // Sélectionner le formulaire d'édition de liste
   const editListForm = document.getElementById("edit-list-form");
 
   // Écouter l'évènement `submit` sur ce formulaire, auquel cas :
-
   editListForm.addEventListener("submit", async (event) => {
     // - empêcher le comportement par défaut du formulaire
     event.preventDefault();

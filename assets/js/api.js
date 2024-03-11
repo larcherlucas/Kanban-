@@ -59,3 +59,16 @@ export async function editList(listId, listData) {
     return null;
   }
 }
+
+export async function deleteList(listId) {
+  try {
+    const httpResponse = await fetch(`${baseApiUrl}/lists/${listId}`, {
+      method: "DELETE",
+    });
+
+    return httpResponse.ok; // True si tout est ok, false sinon
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}
