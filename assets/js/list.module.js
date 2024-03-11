@@ -9,11 +9,9 @@ export function listenToSubmitOnAddListForm() {
   // On ajoute un eventListener au submit du form
   formElem.addEventListener("submit", async (event) => {
     event.preventDefault(); // ON empeche le reload de la page
-
     // On récupere les données du formulaire gace a FormData
     const formData = new FormData(formElem);
     const jsonData = Object.fromEntries(formData);
-
     // On fait l'appel API pour créer la nouvelle list
     const newList = await createList(jsonData);
 

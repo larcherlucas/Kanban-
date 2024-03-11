@@ -1,5 +1,4 @@
 import { baseApiUrl } from "./config.js";
-import { displayErrorMessage } from "./utils.js";
 
 export async function createList(jsonData) {
   try {
