@@ -15,5 +15,8 @@
   "license": "ISC",
   "devDependencies": {
     "vite": "^5.1.5"
+  },
+  "dependencies": {
+    "bulma-toast": "^2.4.4"
   }
 }

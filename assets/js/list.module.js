@@ -1,4 +1,8 @@
-import { closeActiveModal, displayErrorMessage } from "./utils.js";
+import {
+  closeActiveModal,
+  displayErrorMessage,
+  displayToast,
+} from "./utils.js";
 import { getLists, createList } from "./api.js";
 
 export function listenToSubmitOnAddListForm() {
@@ -29,6 +33,9 @@ export function listenToSubmitOnAddListForm() {
 
     // On reset le formulaire
     formElem.reset();
+
+    // On affiche un toast de succes
+    displayToast("List créée");
   });
 }
 

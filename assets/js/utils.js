@@ -1,3 +1,5 @@
+import { toast } from "bulma-toast"; // Possible grace à vite
+
 export function closeActiveModal() {
   // On cherche la modale ouverte, donc qui porte les classes "modal" et "is-active"
   const activeModalElem = document.querySelector(".modal.is-active");
@@ -15,6 +17,16 @@ export function listenToClickOnModalClosingElements() {
   // Pour chaque element je hook la fonction de fermeture des modals
   closingModalElems.forEach((elem) => {
     elem.addEventListener("click", closeActiveModal);
+  });
+}
+
+export function displayToast(msg) {
+  toast({
+    message: msg,
+    type: "is-success",
+    dismissible: true,
+    position: "center",
+    animate: { in: "fadeIn", out: "fadeOut" },
   });
 }
 
