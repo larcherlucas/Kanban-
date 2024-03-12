@@ -1,5 +1,21 @@
 import { baseApiUrl } from "./config.js";
 
+export async function getLists() {
+  try {
+    const httpResponse = await fetch(`${baseApiUrl}/lists`); // on récupère une Response
+    // Si le serveur nous répond qu'il y as eu un soucis
+    if (!httpResponse.ok) {
+      throw new Error("Une erreur est survenue");
+    }
+    const data = await httpResponse.json(); // on transforme le corps de la réponse (JSON) en Objet JS
+    return data;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+/* lists */
 export async function createList(jsonData) {
   try {
     // Ici on doit faire une requete POST à l'API pour la creation d'une nouvelle liste
@@ -17,21 +33,6 @@ export async function createList(jsonData) {
 
     // Le serveur me retourne la nouvelle liste
     const data = await httpResponse.json();
-    return data;
-  } catch (e) {
-    console.log(e);
-    return null;
-  }
-}
-
-export async function getLists() {
-  try {
-    const httpResponse = await fetch(`${baseApiUrl}/lists`); // on récupère une Response
-    // Si le serveur nous répond qu'il y as eu un soucis
-    if (!httpResponse.ok) {
-      throw new Error("Une erreur est survenue");
-    }
-    const data = await httpResponse.json(); // on transforme le corps de la réponse (JSON) en Objet JS
     return data;
   } catch (e) {
     console.log(e);
@@ -70,5 +71,65 @@ export async function deleteList(listId) {
   } catch (e) {
     console.log(e);
     return false;
+  }
+}
+
+/* Cards */
+
+export async function editCard(cardId, cardData) {
+  try {
+    const url = `${baseApiUrl}/cards/${cardId}`;
+    const httpResponse = await fetch(url, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(cardData),
+    });
+
+    if (!httpResponse.ok) {
+      return null;
+    }
+
+    const httpJsonData = await httpResponse.json();
+    return httpJsonData;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+}
+
+export async function deleteCard(cardId) {
+  try {
+    const httpResponse = await fetch(`${baseApiUrl}/cards/${cardId}`, {
+      method: "DELETE",
+    });
+
+    return httpResponse.ok; // True si tout est ok, false sinon
+  } catch (e) {
+    console.log(e);
+    return false;
+  }
+}
+
+export async function createCard(jsonData) {
+  try {
+    // Ici on doit faire une requete POST à l'API pour la creation d'une nouvelle carte
+    const httpResponse = await fetch(`${baseApiUrl}/cards`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(jsonData),
+    });
+
+    console.log(httpResponse);
+    // Si le serveur nous répond qu'il y as eu un soucis
+    if (!httpResponse.ok) {
+      throw new Error("Une erreur est survenue");
+    }
+
+    // Le serveur me retourne la nouvelle liste
+    const data = await httpResponse.json();
+    return data;
+  } catch (e) {
+    console.log(e);
+    return null;
   }
 }

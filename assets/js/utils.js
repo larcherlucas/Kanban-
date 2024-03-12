@@ -25,7 +25,7 @@ export function displayToast(msg) {
     message: msg,
     type: "is-success",
     dismissible: true,
-    position: "center",
+    position: "top-right",
     animate: { in: "fadeIn", out: "fadeOut" },
   });
 }

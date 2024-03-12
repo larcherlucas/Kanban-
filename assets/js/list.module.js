@@ -5,7 +5,6 @@ import {
 } from "./utils.js";
 
 import { getLists, createList, editList, deleteList } from "./api.js";
-import { baseApiUrl } from "./config.js";
 
 export function listenToSubmitOnAddListForm() {
   // Le but : écouter la validation du formulaire et console.log les données
@@ -55,7 +54,7 @@ export function listenToClickOnAddListModal() {
 }
 
 export function addListToListsContainer(list) {
-  // - cloner le template
+  // - cloner le template de la liste
   const templateElem = document.getElementById("list-template");
   const cloneElem = templateElem.content.cloneNode(true);
 
@@ -66,9 +65,49 @@ export function addListToListsContainer(list) {
   cloneElem
     .querySelector('[slot="list-id"]')
     .setAttribute("id", `list-${list.id}`);
+  /* CARDS */
+  // Sélectionner le conteneur pour les listes
+  const cardsContainer = cloneElem.querySelector('[slot="list-content"]');
 
-  // J'ajoute les ecouteurs d'evenement de ma liste
-  // Ouverture de la modal d'edition
+  // Ajouter les cartes à la liste en fonction de l'id de la liste
+  // On boucle sur la liste des cartes
+  list.cards.forEach(card => {
+    // On clone le template de la carte
+    const cardTemplate = document.getElementById("card-template").content.cloneNode(true);
+    // - changer le contenu de l'élément avec le slot `card-content` (du clone) par le contenue de la carte récupérée
+    cardTemplate.querySelector('[slot="card-content"]').textContent = card.content;
+    // - insérer le clone dans le conteneur
+    cardsContainer.appendChild(cardTemplate);
+  });
+
+  // J'ajoute les ecouteurs d'evenement de ma carte
+  // Ouverture de la modal d'edition de carte
+  // selection du button update carte
+  const updatedBtn = cloneElem.querySelector('[slot="updated-card-button"]');
+  updatedBtn.addEventListener("click", () => {
+    console.log("update carte");
+    // Je veux ouvrire la modal
+    const updatedCardModalElement = document.getElementById('edit-card-modal');
+    /* ici bug sur ID qui n'est pas trouvé */
+    // updatedCardModalElement.dataset.cardId = card.id;
+    updatedCardModalElement.classList.add("is-active");
+  });
+
+  // Ouverture de la modal de suppression de ma carte
+  // selection du button remove
+  const removeBtn = cloneElem.querySelector('[slot="remove-card-button"]');
+  removeBtn.addEventListener("click", () => {
+    console.log("remove carte");
+    const removeCardModalElement = document.getElementById('delete-card-modal');
+    /* ici bug sur ID qui n'est pas trouvé */
+    // updatedCardModalElement.dataset.cardId = card.id;
+    removeCardModalElement.classList.add("is-active");
+  });
+
+  /* Fin CARDS */
+
+  // J'ajoute les ecouteurs d'evenement 
+  // Ouverture de la modal d'edition de ma liste
   const editBtnElem = cloneElem.querySelector('[slot="edit-card-button"]');
   editBtnElem.addEventListener("click", () => {
     // Je veux ouvrire la modal
@@ -82,7 +121,7 @@ export function addListToListsContainer(list) {
     editListModalElem.classList.add("is-active");
   });
 
-  // Ouverture de la modal de suppression
+  // Ouverture de la modal de suppression de ma liste
   const deleteBtnElem = cloneElem.querySelector('[slot="delete-card-button"]');
   deleteBtnElem.addEventListener("click", () => {
     const deleteListModalElem = document.getElementById("delete-list-modal");
@@ -94,7 +133,7 @@ export function addListToListsContainer(list) {
   const listContainer = document.getElementById("lists-container");
 
   // - insérer le clone dans le conteneur
-  listContainer.appendChild(cloneElem); // prepend c'est comme appendChild mais ça positionne avant
+  listContainer.appendChild(cloneElem); 
 }
 
 export function listenToSubmitOnDeleteListForm() {
@@ -137,7 +176,7 @@ export function listenToSubmitOnEditListForm() {
     const jsonFormData = Object.fromEntries(formData);
 
     // - récupérer l'ID de la liste à modifier dans les dataset de la modale
-    const listId = document.getElementById("edit-list-modal").dataset.listId;
+    const listId = document.getElementById("edit-list-modal").dataset.listId; 
 
     // - PATCH `/lists/:listId` avec comme body { "title": "..." }
     // - récupérer le résultat de la requête PATCH, et en cas de succès
@@ -164,8 +203,7 @@ export function listenToSubmitOnEditListForm() {
     // - Envoyer un message de succès a l'utilisateur
     displayToast("Liste modifiée");
 
-    // Festoyer ! Tres fort !
-    // \o/
+
   });
 }
 
