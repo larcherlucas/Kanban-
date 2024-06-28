@@ -1,330 +1,209 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>oKanban</title>
 
-    <!-- Bulma (make sure to use last updated version)-->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>oKanban</title>
 
-    <!-- Custom CSS-->
-    <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <link rel="stylesheet" href="./assets/css/style.css" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
-    />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css" />
+  <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
 
-    <!-- Font Awesome (using version 5, as version >=6 does not provide an out-of-the-box CDN)-->
-    <script
-      defer
-      src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"
-    ></script>
+  <script defer src="./assets/js/index.js" type="module"></script>
+</head>
 
-    <!-- Custom JS -->
-    <script defer src="./assets/js/index.js" type="module"></script>
-  </head>
+<body>
+  <header>
+    <h1 class="title is-1 my-5">oKanban</h1>
+  </header>
 
-  <body>
-    <header>
-      <h1 class="title is-1 my-5">oKanban</h1>
-    </header>
-
-    <main class="flex-container">
-      <div id="lists-container" class="flex-container">
-        <!-- List -->
-      </div>
-
-      <!-- Add a list button -->
-      <section class="message">
-        <div class="message-header">
-          <div>Ajouter une liste</div>
-        </div>
-        <div class="message-body">
-          <button class="button is-large is-fullwidth" id="add-list-btn">
-            <i class="fas fa-plus"></i>
-          </button>
-        </div>
-      </section>
-    </main>
-
-    <!-- delete a modal -->
-    <!-- (add the 'is-active' class to see it : https://bulma.io/documentation/components/modal/#javascript-implementation-example) -->
-    <div class="modal" id="delete-list-modal">
-      <div class="modal-background" data-action="close-modal"></div>
-      <div class="modal-card">
-        <form id="delete-list-form">
-          <div class="modal-card-head">
-            <p class="modal-card-title">Supprimer une liste</p>
-            <button
-              class="delete close"
-              type="button"
-              aria-label="close"
-              data-action="close-modal"
-            ></button>
-          </div>
-
-          <div class="modal-card-body">
-            <p>Voulez vous supprimer la liste ?</p>
-          </div>
-
-          <div class="modal-card-foot">
-            <button class="button is-success">Oui</button>
-            <button
-              class="button close"
-              type="button"
-              data-action="close-modal"
-            >
-              Non
-            </button>
-          </div>
-        </form>
-      </div>
+  <main class="flex-container">
+    <div id="lists-container" class="flex-container">
     </div>
-
-    <!-- Edit a list modal -->
-    <!-- (add the 'is-active' class to see it : https://bulma.io/documentation/components/modal/#javascript-implementation-example) -->
-    <div class="modal" id="edit-list-modal">
-      <div class="modal-background" data-action="close-modal"></div>
-      <div class="modal-card">
-        <form id="edit-list-form">
-          <div class="modal-card-head">
-            <p class="modal-card-title">Editer une liste</p>
-            <button
-              class="delete close"
-              type="button"
-              aria-label="close"
-              data-action="close-modal"
-            ></button>
-          </div>
-
-          <div class="modal-card-body">
-            <label class="label">Nouveau titre</label>
-            <input
-              class="input"
-              type="text"
-              name="title"
-              placeholder="Titre de la liste"
-            />
-          </div>
-
-          <div class="modal-card-foot">
-            <button class="button is-success">Modifier</button>
-            <button
-              class="button close"
-              type="button"
-              data-action="close-modal"
-            >
-              Annuler
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Add a list modal -->
-    <!-- (add the 'is-active' class to see it : https://bulma.io/documentation/components/modal/#javascript-implementation-example) -->
-    <div class="modal" id="add-list-modal">
-      <div class="modal-background" data-action="close-modal"></div>
-      <div class="modal-card">
-        <form id="add-list-form">
-          <div class="modal-card-head">
-            <p class="modal-card-title">Ajouter une liste</p>
-            <button
-              class="delete close"
-              type="button"
-              aria-label="close"
-              data-action="close-modal"
-            ></button>
-          </div>
-
-          <div class="modal-card-body">
-            <label class="label">Nom</label>
-            <input
-              class="input"
-              type="text"
-              name="title"
-              placeholder="Titre de la liste"
-            />
-          </div>
-
-          <div class="modal-card-foot">
-            <button class="button is-success">Ajouter</button>
-            <button
-              class="button close"
-              type="button"
-              data-action="close-modal"
-            >
-              Annuler
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </body>
-
-  <!-- Template pour une liste -->
-  <template id="list-template">
-    <section class="message is-info" slot="list-id">
+    <section class="message">
       <div class="message-header">
-        <div class="list-title" slot="list-title">TITRE_DE_LA_LISTE</div>
-        <div>
-          <span class="icon is-clickable" slot="add-card-button"
-            ><i class="fas fa-plus"></i
-          ></span>
-          <span class="icon is-clickable" slot="edit-card-button"
-            ><i class="fas fa-pen"></i
-          ></span>
-          <span class="icon is-clickable" slot="delete-card-button"
-            ><i class="fas fa-trash"></i
-          ></span>
-        </div>
+        <div>Ajouter une liste</div>
       </div>
-
-      <div class="message-body" slot="list-content">
-        <!-- Cards go here -->
+      <div class="message-body">
+        <button class="button is-large is-fullwidth" id="add-list-btn">
+          <i class="fas fa-plus"></i>
+        </button>
       </div>
     </section>
-  </template>
-  <div id="cards-container" class="flex-container">
-    <!-- List -->
+  </main>
+  <div class="modal" id="delete-list-modal">
+    <div class="modal-background" data-action="close-modal"></div>
+    <div class="modal-card">
+      <form id="delete-list-form">
+        <div class="modal-card-head">
+          <p class="modal-card-title">Supprimer une liste</p>
+          <button class="delete close" type="button" aria-label="close" data-action="close-modal"></button>
+        </div>
+
+        <div class="modal-card-body">
+          <p>Voulez vous supprimer la liste ?</p>
+        </div>
+
+        <div class="modal-card-foot">
+          <button class="button is-success">Oui</button>
+          <button class="button close" type="button" data-action="close-modal">
+            Non
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-
-      <!-- delete a modal -->
-    <!-- (add the 'is-active' class to see it : https://bulma.io/documentation/components/modal/#javascript-implementation-example) -->
-    <div class="modal" id="delete-card-modal">
-      <div class="modal-background" data-action="close-modal"></div>
-      <div class="modal-card">
-        <form id="delete-card-form">
-          <div class="modal-card-head">
-            <p class="modal-card-title">Supprimer une carte</p>
-            <button
-              class="delete close"
-              type="button"
-              aria-label="close"
-              data-action="close-modal"
-            ></button>
-          </div>
-
-          <div class="modal-card-body">
-            <p>Voulez vous supprimer la carte ?</p>
-          </div>
-
-          <div class="modal-card-foot">
-            <button class="button is-success">Oui</button>
-            <button
-              class="button close"
-              type="button"
-              data-action="close-modal"
-            >
-              Non
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Updated a card modal -->
-    <!-- (add the 'is-active' class to see it : https://bulma.io/documentation/components/modal/#javascript-implementation-example) -->
-    <div class="modal" id="edit-card-modal">
-      <div class="modal-background" data-action="close-modal"></div>
-      <div class="modal-card">
-        <form id="edit-card-form">
-          <div class="modal-card-head">
-            <p class="modal-card-content">Editer une carte</p>
-            <button
-              class="delete close"
-              type="button"
-              aria-label="close"
-              data-action="close-modal"
-            ></button>
-          </div>
-
-          <div class="modal-card-body">
-            <label class="label">Nouveau contenu</label>
-            <input
-              class="input"
-              type="text"
-              name="title"
-              placeholder="contenue de la carte"
-            />
-          </div>
-
-          <div class="modal-card-foot">
-            <button class="button is-success">Modifier</button>
-            <button
-              class="button close"
-              type="button"
-              data-action="close-modal"
-            >
-              Annuler
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Add a card modal -->
-    <!-- (add the 'is-active' class to see it : https://bulma.io/documentation/components/modal/#javascript-implementation-example) -->
-    <div class="modal" id="add-card-modal">
-      <div class="modal-background" data-action="close-modal"></div>
-      <div class="modal-card">
-        <form id="add-card-form">
-          <div class="modal-card-head">
-            <p class="modal-card-content">Ajouter une carte</p>
-            <button
-              class="delete close"
-              type="button"
-              aria-label="close"
-              data-action="close-modal"
-            ></button>
-          </div>
-
-          <div class="modal-card-body">
-            <label class="label">contenue</label>
-            <input
-              class="input"
-              type="text"
-              name="title"
-              placeholder="Titre de la liste"
-            />
-          </div>
-
-          <div class="modal-card-foot">
-            <button class="button is-success">Ajouter</button>
-            <button
-              class="button close"
-              type="button"
-              data-action="close-modal"
-            >
-              Annuler
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </body>
-
-  <!-- Template pour une carte -->
-  <template id="card-template">
-    <article class="card">
-      <div class="card-header">
-        <div class="card-header-title has-text-weight-medium" slot="card-content">
-          CONTENU_DE_LA_CARTE
+  <div class="modal" id="edit-list-modal">
+    <div class="modal-background" data-action="close-modal"></div>
+    <div class="modal-card">
+      <form id="edit-list-form">
+        <div class="modal-card-head">
+          <p class="modal-card-title">Editer une liste</p>
+          <button class="delete close" type="button" aria-label="close" data-action="close-modal"></button>
         </div>
-        <div class="card-header-icon">
-          <span class="icon has-text-success" slot="updated-card-button"
-            ><i class="fas fa-pencil-alt"></i
-          ></span>
-          <span class="icon has-text-danger ml-2" slot="remove-card-button"
-            ><i class="fas fa-trash-alt"></i
-          ></span>
+
+        <div class="modal-card-body">
+          <label class="label">Nouveau titre</label>
+          <input class="input" type="text" name="title" placeholder="Titre de la liste" />
         </div>
+
+        <div class="modal-card-foot">
+          <button class="button is-success">Modifier</button>
+          <button class="button close" type="button" data-action="close-modal">
+            Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal" id="add-list-modal">
+    <div class="modal-background" data-action="close-modal"></div>
+    <div class="modal-card">
+      <form id="add-list-form">
+        <div class="modal-card-head">
+          <p class="modal-card-title">Ajouter une liste</p>
+          <button class="delete close" type="button" aria-label="close" data-action="close-modal"></button>
+        </div>
+
+        <div class="modal-card-body">
+          <label class="label">Nom</label>
+          <input class="input" type="text" name="title" placeholder="Titre de la liste" />
+        </div>
+
+        <div class="modal-card-foot">
+          <button class="button is-success">Ajouter</button>
+          <button class="button close" type="button" data-action="close-modal">
+            Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+<template id="list-template">
+  <section class="message is-info" slot="list-id">
+    <div class="message-header">
+      <div class="list-title" slot="list-title">TITRE_DE_LA_LISTE</div>
+      <div>
+        <span class="icon is-clickable" slot="add-card-button"><i class="fas fa-plus"></i></span>
+        <span class="icon is-clickable" slot="edit-card-button"><i class="fas fa-pen"></i></span>
+        <span class="icon is-clickable" slot="delete-card-button"><i class="fas fa-trash"></i></span>
       </div>
-    </article>
-  </template>
+    </div>
+
+    <div class="message-body" slot="list-content">
+    </div>
+  </section>
+</template>
+<div id="cards-container" class="flex-container">
+</div>
+
+<div class="modal" id="delete-card-modal">
+  <div class="modal-background" data-action="close-modal"></div>
+  <div class="modal-card">
+    <form id="delete-card-form">
+      <div class="modal-card-head">
+        <p class="modal-card-title">Supprimer une carte</p>
+        <button class="delete close" type="button" aria-label="close" data-action="close-modal"></button>
+      </div>
+
+      <div class="modal-card-body">
+        <p>Voulez vous supprimer la carte ?</p>
+      </div>
+
+      <div class="modal-card-foot">
+        <button class="button is-success">Oui</button>
+        <button class="button close" type="button" data-action="close-modal">
+          Non
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal" id="edit-card-modal">
+  <div class="modal-background" data-action="close-modal"></div>
+  <div class="modal-card">
+    <form id="edit-card-form">
+      <div class="modal-card-head">
+        <p class="modal-card-content">Editer une carte</p>
+        <button class="delete close" type="button" aria-label="close" data-action="close-modal"></button>
+      </div>
+
+      <div class="modal-card-body">
+        <label class="label">Nouveau contenu</label>
+        <input class="input" type="text" name="title" placeholder="contenue de la carte" />
+      </div>
+
+      <div class="modal-card-foot">
+        <button class="button is-success">Modifier</button>
+        <button class="button close" type="button" data-action="close-modal">
+          Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal" id="add-card-modal">
+  <div class="modal-background" data-action="close-modal"></div>
+  <div class="modal-card">
+    <form id="add-card-form">
+      <div class="modal-card-head">
+        <p class="modal-card-content">Ajouter une carte</p>
+        <button class="delete close" type="button" aria-label="close" data-action="close-modal"></button>
+      </div>
+
+      <div class="modal-card-body">
+        <label class="label">contenue</label>
+        <input class="input" type="text" name="title" placeholder="Titre de la liste" />
+      </div>
+
+      <div class="modal-card-foot">
+        <button class="button is-success">Ajouter</button>
+        <button class="button close" type="button" data-action="close-modal">
+          Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+
+<template id="card-template">
+  <article class="card">
+    <div class="card-header">
+      <div class="card-header-title has-text-weight-medium" slot="card-content">
+        CONTENU_DE_LA_CARTE
+      </div>
+      <div class="card-header-icon">
+        <span class="icon has-text-success" slot="updated-card-button"><i class="fas fa-pencil-alt"></i></span>
+        <span class="icon has-text-danger ml-2" slot="remove-card-button"><i class="fas fa-trash-alt"></i></span>
+      </div>
+    </div>
+  </article>
+</template>
+
 </html>
